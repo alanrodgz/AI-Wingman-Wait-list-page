@@ -89,7 +89,7 @@ const people = [
     id: 1,
     name: "INSTAGRAM",
     designation: "@AISmartDating",
-    image: "/img/time.png",
+    image: "/img/insta.ico",
     href: "https://www.instagram.com/aismartdating/",
   },
   // {

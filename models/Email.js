@@ -1,16 +1,26 @@
-import mongoose from "mongoose";
+// Email.js - Updated to use Getform.io
 
-const { Schema } = mongoose;
+export const addEmailToWaitlist = async (email) => {
+  const formEndpoint = "https://getform.io/f/bxoodwla"; // Replace with your Getform.io endpoint
 
-const emailSchema = new Schema(
-  {
-    email: {
-      type: String,
-      required: true,
-      unique: true, // Ensures unique emails
-    },
-  },
-  { timestamps: true }
-);
+  try {
+    const response = await fetch(formEndpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
 
-export default mongoose.models.Email || mongoose.model("Email", emailSchema);
+    if (!response.ok) {
+      throw new Error("Failed to submit email to Getform.io");
+    }
+
+    const result = await response.json();
+    console.log("Email submitted successfully:", result);
+    return result;
+  } catch (error) {
+    console.error("Error submitting email:", error);
+    throw error; // Propagate the error to the caller
+  }
+};
